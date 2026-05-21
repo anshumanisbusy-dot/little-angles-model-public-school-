@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Little Angels Model Public School</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --navy: #003166;
+      --blue: #1565C0;
+      --sky: #42A5F5;
+      --gold: #FFD600;
+      --gold2: #FFA000;
+      --white: #ffffff;
+      --light: #EBF3FF;
+      --accent: #FF6F00;
+      --green: #00C853;
+      --pink: #FF4081;
+      --text: #1a1a2e;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--light); color: var(--text); overflow-x: hidden; }
+
+    /* ===== CUSTOM SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+
+    /* ===== FLOATING PARTICLES ===== */
+    #particles { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
+    .particle { position:absolute; border-radius:50%; opacity:0.15; animation: floatUp linear infinite; }
+    @keyframes floatUp {
+      0% { transform: translateY(110vh) rotate(0deg); opacity:0; }
+      10% { opacity:0.15; }
+      90% { opacity:0.1; }
+      100% { transform: translateY(-10vh) rotate(720deg); opacity:0; }
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:1000;
+      background: rgba(0,49,102,0.95);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 70px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+      transition: 0.3s;
+    }
+    nav.scrolled { background: rgba(0,30,70,0.99); }
+    .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .nav-logo img { width:45px; height:45px; border-radius:50%; border:2px solid var(--gold); object-fit:cover; }
+    .nav-logo span { color:white; font-weight:800; font-size:1rem; line-height:1.2; }
+    .nav-links { display:flex; gap:6px; list-style:none; }
+    .nav-links a { color:rgba(255,255,255,0.85); text-decoration:none; font-size:0.85rem; font-weight:600; padding:6px 12px; border-radius:20px; transition:0.3s; }
+    .nav-links a:hover { background:var(--gold); color:var(--navy); }
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+    .hamburger span { width:25px; height:3px; background:white; border-radius:3px; transition:0.3s; }
+    .mobile-menu { display:none; flex-direction:column; background:var(--navy); padding:20px; position:fixed; top:70px; left:0; right:0; z-index:999; }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a { color:white; text-decoration:none; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.1); font-weight:600; }
+
+    /* ===== HERO ===== */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, rgba(0,20,60,0.82) 0%, rgba(0,80,160,0.68) 100%),
+                  url('https://i.ibb.co/JFWJhLJ0/Chat-GPT-Image-May-21-2026-09-04-44-AM.png') center/cover no-repeat;
+      display: flex; flex-direction:column; align-items:center; justify-content:center;
+      text-align:center; padding: 100px 20px 60px;
+      position: relative; overflow:hidden;
+    }
+    .hero-stars { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; }
+    .star { position:absolute; background:white; border-radius:50%; animation: twinkle ease-in-out infinite; }
+    @keyframes twinkle { 0%,100%{opacity:0.1;transform:scale(1);} 50%{opacity:0.8;transform:scale(1.5);} }
+
+    .logo-ring {
+      position:relative; width:160px; height:160px; margin:0 auto 30px;
+      animation: logoAnim 1s ease forwards;
+    }
+    @keyframes logoAnim { from{opacity:0;transform:scale(0.5) rotate(-20deg);} to{opacity:1;transform:scale(1) rotate(0deg);} }
+    .logo-ring::before {
+      content:''; position:absolute; inset:-8px;
+      border-radius:50%;
+      background: conic-gradient(var(--gold), var(--sky), var(--gold2), var(--gold));
+      animation: spinRing 4s linear infinite;
+    }
+    @keyframes spinRing { to{transform:rotate(360deg);} }
+    .logo-ring img { position:relative; z-index:1; width:150px; height:150px; border-radius:50%; object-fit:cover; border:5px solid white; background:white; padding:4px; }
+
+    .hero-badge {
+      background: var(--gold); color:var(--navy); font-weight:800; font-size:0.8rem;
+      padding:6px 20px; border-radius:20px; letter-spacing:2px; text-transform:uppercase;
+      margin-bottom:20px;
+      animation: badgePop 0.5s 0.8s ease both;
+    }
+    @keyframes badgePop { from{opacity:0;transform:scale(0.7);} to{opacity:1;transform:scale(1);} }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 5rem);
+      color: white; font-weight:900;
+      line-height:1.1;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+      animation: slideUp 1s 0.3s ease both;
+      margin-bottom:16px;
+    }
+    .hero h1 span { color: var(--gold); }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 2.5vw, 1.4rem); color:rgba(255,255,255,0.92);
+      max-width:700px; line-height:1.7;
+      animation: slideUp 1s 0.6s ease both;
+      margin-bottom:10px;
+    }
+    .hero-sub { color:var(--gold); font-weight:700; font-size:1.1rem; animation:slideUp 1s 0.9s ease both; margin-bottom:35px; }
+
+    @keyframes slideUp { from{opacity:0;transform:translateY(40px);} to{opacity:1;transform:translateY(0);} }
+
+    .hero-btns { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; animation:slideUp 1s 1.1s ease both; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: var(--navy); font-weight:800; padding:16px 36px;
+      border-radius:50px; text-decoration:none; font-size:1rem;
+      box-shadow: 0 8px 25px rgba(255,214,0,0.5);
+      transition:0.3s; display:inline-flex; align-items:center; gap:8px;
+    }
+    .btn-primary:hover { transform:translateY(-4px) scale(1.04); box-shadow:0 14px 35px rgba(255,214,0,0.6); }
+    .btn-outline {
+      background: transparent; color:white; border:2px solid white;
+      font-weight:700; padding:14px 32px; border-radius:50px; text-decoration:none;
+      font-size:1rem; transition:0.3s; display:inline-flex; align-items:center; gap:8px;
+    }
+    .btn-outline:hover { background:white; color:var(--navy); transform:translateY(-4px); }
+
+    .scroll-indicator { margin-top:50px; animation:bounce 2s infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(10px);} }
+    .scroll-indicator i { color:rgba(255,255,255,0.6); font-size:1.5rem; }
+
+    /* ===== MARQUEE ===== */
+    .marquee-wrap { background: linear-gradient(90deg, var(--gold2), var(--gold)); padding:12px 0; overflow:hidden; }
+    .marquee { display:flex; gap:60px; white-space:nowrap; animation:marqueeScroll 25s linear infinite; }
+    .marquee span { font-weight:700; color:var(--navy); font-size:0.95rem; }
+    .marquee span i { margin-right:8px; }
+    @keyframes marqueeScroll { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 90px 8%; position:relative; }
+    .section-label {
+      display:inline-block; background:var(--gold); color:var(--navy);
+      font-weight:800; font-size:0.75rem; letter-spacing:3px; text-transform:uppercase;
+      padding:6px 18px; border-radius:20px; margin-bottom:16px;
+    }
+    .section-title {
+      font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem);
+      color:var(--navy); margin-bottom:14px; line-height:1.2;
+    }
+    .section-title span { color:var(--blue); }
+    .section-line { width:60px; height:5px; background:linear-gradient(90deg,var(--gold),var(--gold2)); border-radius:3px; margin-bottom:40px; }
+    .section-center { text-align:center; }
+    .section-center .section-line { margin:0 auto 40px; }
+
+    /* ===== ABOUT ===== */
+    #about { background: white; }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+    .about-img-wrap { position:relative; }
+    .about-img-wrap img { width:100%; border-radius:24px; box-shadow:0 20px 50px rgba(0,0,0,0.15); }
+    .about-badge {
+      position:absolute; bottom:-20px; right:-20px;
+      background:linear-gradient(135deg,var(--gold),var(--gold2));
+      color:var(--navy); font-weight:900; padding:20px; border-radius:20px;
+      text-align:center; box-shadow:0 10px 30px rgba(255,160,0,0.4);
+      font-family:'Playfair Display',serif;
+    }
+    .about-badge .num { font-size:2.5rem; display:block; line-height:1; }
+    .about-text p { font-size:1.05rem; line-height:1.9; color:#444; margin-bottom:20px; }
+    .about-features { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:20px; }
+    .feat-item { display:flex; align-items:center; gap:10px; font-weight:700; color:var(--navy); }
+    .feat-item i { color:var(--gold2); font-size:1.2rem; }
+
+    /* ===== STATS ===== */
+    #stats { background:linear-gradient(135deg, var(--navy) 0%, #001a50 100%); padding:70px 8%; }
+    .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:24px; }
+    .stat-card {
+      background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+      border-radius:24px; padding:40px 20px; text-align:center;
+      transition:0.4s; cursor:default;
+      position:relative; overflow:hidden;
+    }
+    .stat-card::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg, rgba(255,214,0,0.08), transparent);
+      opacity:0; transition:0.4s;
+    }
+    .stat-card:hover { transform:translateY(-12px); border-color:var(--gold); }
+    .stat-card:hover::before { opacity:1; }
+    .stat-icon { font-size:2.5rem; margin-bottom:12px; }
+    .stat-num { font-family:'Playfair Display',serif; font-size:3rem; color:var(--gold); font-weight:900; display:block; }
+    .stat-label { color:rgba(255,255,255,0.8); font-weight:600; font-size:0.95rem; }
+
+    /* ===== PRINCIPAL ===== */
+    #principal { background:linear-gradient(135deg, #EBF3FF 0%, #D6EAFF 100%); }
+    .principal-card {
+      max-width:900px; margin:0 auto;
+      background:white; border-radius:30px; padding:50px;
+      box-shadow:0 20px 60px rgba(0,49,102,0.12);
+      display:grid; grid-template-columns:220px 1fr; gap:40px; align-items:center;
+    }
+    .principal-img-wrap { text-align:center; }
+    .principal-img-wrap .avatar {
+      width:180px; height:180px; border-radius:50%;
+      background:linear-gradient(135deg, var(--navy), var(--blue));
+      display:flex; align-items:center; justify-content:center;
+      margin:0 auto 15px;
+      font-size:5rem; color:white;
+      box-shadow:0 10px 30px rgba(0,49,102,0.3);
+    }
+    .principal-name { font-weight:800; color:var(--navy); font-size:1.1rem; }
+    .principal-title { color:var(--blue); font-weight:600; font-size:0.9rem; }
+    .principal-msg { font-size:1.05rem; line-height:1.9; color:#444; font-style:italic; position:relative; padding-left:20px; }
+    .principal-msg::before { content:'"'; position:absolute; left:0; top:-10px; font-size:4rem; color:var(--gold); font-family:'Playfair Display',serif; line-height:1; }
+    .principal-sign { margin-top:20px; font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--navy); }
+
+    /* ===== GALLERY ===== */
+    #gallery { background:white; }
+    .gallery-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+    .gallery-item {
+      position:relative; border-radius:20px; overflow:hidden;
+      box-shadow:0 8px 25px rgba(0,0,0,0.12); cursor:pointer;
+      aspect-ratio:4/3;
+    }
+    .gallery-item img { width:100%; height:100%; object-fit:cover; transition:0.5s; display:block; }
+    .gallery-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(0,49,102,0.85), transparent);
+      opacity:0; transition:0.4s;
+      display:flex; flex-direction:column; justify-content:flex-end; padding:20px;
+    }
+    .gallery-item:hover img { transform:scale(1.1); }
+    .gallery-item:hover .gallery-overlay { opacity:1; }
+    .gallery-overlay h4 { color:white; font-weight:700; }
+    .gallery-overlay p { color:rgba(255,255,255,0.8); font-size:0.85rem; }
+
+    /* ===== ADMISSION ===== */
+    #admission { background:linear-gradient(135deg, var(--navy) 0%, #002060 100%); overflow:hidden; }
+    .admission-wrap { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+    .admission-content h2 { font-family:'Playfair Display',serif; font-size:2.5rem; color:white; margin-bottom:20px; }
+    .admission-content p { color:rgba(255,255,255,0.85); line-height:1.8; margin-bottom:30px; }
+    .class-tags { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:30px; }
+    .class-tag {
+      background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25);
+      color:white; padding:8px 18px; border-radius:30px; font-weight:700; font-size:0.85rem;
+      transition:0.3s;
+    }
+    .class-tag:hover { background:var(--gold); color:var(--navy); border-color:var(--gold); }
+    .admission-card {
+      background:white; border-radius:28px; padding:40px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.3);
+    }
+    .admission-card h3 { color:var(--navy); font-size:1.5rem; font-weight:800; margin-bottom:24px; }
+    .adm-item { display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid #eee; }
+    .adm-item:last-child { border:none; }
+    .adm-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+    .adm-icon.blue { background:#EBF3FF; color:var(--blue); }
+    .adm-icon.gold { background:#FFF8E1; color:var(--gold2); }
+    .adm-icon.green { background:#E8F5E9; color:var(--green); }
+    .adm-info strong { display:block; color:var(--navy); font-weight:700; }
+    .adm-info span { color:#666; font-size:0.9rem; }
+
+    /* ===== FACILITIES ===== */
+    #facilities { background: #f5f7fb; }
+    .facilities-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px; }
+    .facility-card {
+      background:white; border-radius:24px; padding:36px 24px; text-align:center;
+      box-shadow:0 6px 20px rgba(0,0,0,0.07); transition:0.4s;
+      border:2px solid transparent; cursor:default;
+    }
+    .facility-card:hover { transform:translateY(-10px); border-color:var(--gold); box-shadow:0 16px 40px rgba(21,101,192,0.15); }
+    .fac-icon {
+      width:70px; height:70px; border-radius:20px; margin:0 auto 18px;
+      display:flex; align-items:center; justify-content:center; font-size:2rem;
+    }
+    .facility-card h4 { color:var(--navy); font-weight:800; margin-bottom:8px; }
+    .facility-card p { color:#666; font-size:0.9rem; line-height:1.6; }
+
+    /* ===== NOTICE BOARD ===== */
+    #notices { background:white; }
+    .notices-wrap { display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+    .notice-board {
+      background:linear-gradient(135deg, #FFF8E1, #FFFDE7);
+      border:2px solid var(--gold);
+      border-radius:24px; padding:30px; position:relative;
+    }
+    .notice-header { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+    .notice-header i { color:var(--gold2); font-size:1.5rem; }
+    .notice-header h3 { color:var(--navy); font-weight:800; font-size:1.2rem; }
+    .notice-item {
+      display:flex; gap:14px; padding:14px 0; border-bottom:1px dashed rgba(0,0,0,0.12);
+      transition:0.3s; cursor:default;
+    }
+    .notice-item:last-child { border:none; }
+    .notice-item:hover { padding-left:8px; }
+    .notice-date { min-width:50px; text-align:center; }
+    .notice-date .day { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:900; color:var(--navy); display:block; line-height:1; }
+    .notice-date .month { font-size:0.75rem; color:var(--blue); font-weight:700; text-transform:uppercase; }
+    .notice-content strong { display:block; color:var(--navy); font-weight:700; font-size:0.95rem; }
+    .notice-content span { color:#666; font-size:0.85rem; }
+    .notice-tag { display:inline-block; padding:2px 10px; border-radius:10px; font-size:0.7rem; font-weight:700; margin-top:4px; }
+    .tag-exam { background:#E3F2FD; color:var(--blue); }
+    .tag-holiday { background:#E8F5E9; color:#2E7D32; }
+    .tag-event { background:#FFF3E0; color:var(--accent); }
+
+    /* ===== ACHIEVEMENTS ===== */
+    #achievements { background:linear-gradient(135deg, #EBF3FF 0%, #D6EAFF 100%); }
+    .ach-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:24px; }
+    .ach-card {
+      background:white; border-radius:24px; padding:30px; text-align:center;
+      box-shadow:0 8px 25px rgba(0,0,0,0.08); transition:0.4s; position:relative; overflow:hidden;
+    }
+    .ach-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--gold),var(--gold2)); }
+    .ach-card:hover { transform:translateY(-8px); }
+    .ach-trophy { font-size:3rem; margin-bottom:12px; }
+    .ach-card h4 { color:var(--navy); font-weight:800; margin-bottom:6px; }
+    .ach-card p { color:#666; font-size:0.9rem; }
+    .ach-stars { color:var(--gold); margin-top:10px; letter-spacing:3px; }
+
+    /* ===== CONTACT ===== */
+    #contact { background:linear-gradient(135deg, var(--navy) 0%, #001a50 100%); }
+    .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; }
+    .contact-info h2 { font-family:'Playfair Display',serif; font-size:2.5rem; color:white; margin-bottom:30px; }
+    .contact-item { display:flex; align-items:flex-start; gap:16px; margin-bottom:28px; }
+    .contact-icon {
+      width:50px; height:50px; border-radius:15px; flex-shrink:0;
+      background:rgba(255,214,0,0.15); border:1px solid rgba(255,214,0,0.3);
+      display:flex; align-items:center; justify-content:center; font-size:1.2rem; color:var(--gold);
+    }
+    .contact-detail strong { color:white; font-weight:700; display:block; margin-bottom:4px; }
+    .contact-detail a, .contact-detail span { color:rgba(255,255,255,0.75); text-decoration:none; transition:0.3s; }
+    .contact-detail a:hover { color:var(--gold); }
+    .contact-btns { display:flex; gap:14px; flex-wrap:wrap; margin-top:10px; }
+    .wa-btn {
+      background:#25D366; color:white; padding:14px 28px; border-radius:50px;
+      text-decoration:none; font-weight:800; display:inline-flex; align-items:center; gap:8px;
+      transition:0.3s; font-size:0.95rem;
+    }
+    .wa-btn:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(37,211,102,0.4); }
+    .call-btn {
+      background:linear-gradient(135deg,var(--gold),var(--gold2)); color:var(--navy);
+      padding:14px 28px; border-radius:50px; text-decoration:none; font-weight:800;
+      display:inline-flex; align-items:center; gap:8px; transition:0.3s; font-size:0.95rem;
+    }
+    .call-btn:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(255,160,0,0.4); }
+    .map-embed { border-radius:24px; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.3); height:350px; }
+    .map-embed iframe { width:100%; height:100%; border:none; }
+
+    /* ===== SOCIAL ===== */
+    #social { background:#f5f7fb; padding:60px 8%; text-align:center; }
+    .social-links { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:30px; }
+    .social-btn {
+      width:65px; height:65px; border-radius:20px; display:flex; align-items:center; justify-content:center;
+      font-size:1.6rem; text-decoration:none; transition:0.3s; color:white;
+    }
+    .social-btn:hover { transform:translateY(-8px) scale(1.1); }
+    .yt { background:linear-gradient(135deg,#FF0000,#CC0000); }
+    .fb { background:linear-gradient(135deg,#1877F2,#1256B3); }
+    .ig { background:linear-gradient(135deg,#E1306C,#833AB4,#FD1D1D); }
+    .wa2 { background:linear-gradient(135deg,#25D366,#1DA851); }
+
+    /* ===== SUPPORT WIDGET ===== */
+    #support-fab {
+      position:fixed; bottom:30px; right:30px; z-index:9999;
+    }
+    .fab-main {
+      width:62px; height:62px; border-radius:50%;
+      background:linear-gradient(135deg,var(--gold),var(--gold2));
+      border:none; cursor:pointer; font-size:1.6rem;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 8px 25px rgba(255,160,0,0.5);
+      transition:0.3s; color:var(--navy);
+    }
+    .fab-main:hover { transform:scale(1.1) rotate(15deg); }
+    .fab-panel {
+      position:absolute; bottom:75px; right:0;
+      background:white; border-radius:24px;
+      padding:24px; width:280px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.2);
+      display:none; animation:panelIn 0.3s ease;
+    }
+    .fab-panel.open { display:block; }
+    @keyframes panelIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+    .fab-panel h4 { color:var(--navy); font-weight:800; margin-bottom:6px; font-size:1.05rem; }
+    .fab-panel p { color:#666; font-size:0.85rem; margin-bottom:20px; }
+    .fab-action {
+      display:flex; align-items:center; gap:12px; padding:12px 16px;
+      border-radius:14px; text-decoration:none; margin-bottom:10px;
+      transition:0.3s; font-weight:700; font-size:0.9rem;
+    }
+    .fab-action:last-child { margin:0; }
+    .fab-action.phone { background:#EBF3FF; color:var(--navy); }
+    .fab-action.phone:hover { background:var(--navy); color:white; }
+    .fab-action.whatsapp { background:#E8F5E9; color:#1B5E20; }
+    .fab-action.whatsapp:hover { background:#25D366; color:white; }
+    .fab-action i { font-size:1.2rem; }
+    .fab-close { position:absolute; top:14px; right:14px; background:none; border:none; cursor:pointer; color:#aaa; font-size:1rem; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background:#000D2E; color:rgba(255,255,255,0.7);
+      text-align:center; padding:30px 20px;
+    }
+    footer strong { color:var(--gold); }
+    .footer-heart { color:#FF4081; animation:heartBeat 1.5s ease-in-out infinite; display:inline-block; }
+    @keyframes heartBeat { 0%,100%{transform:scale(1);} 50%{transform:scale(1.3);} }
+
+    /* ===== SCROLL ANIMATIONS ===== */
+    .reveal { opacity:0; transform:translateY(40px); transition:0.7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal-left { opacity:0; transform:translateX(-60px); transition:0.7s ease; }
+    .reveal-left.visible { opacity:1; transform:translateX(0); }
+    .reveal-right { opacity:0; transform:translateX(60px); transition:0.7s ease; }
+    .reveal-right.visible { opacity:1; transform:translateX(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:900px) {
+      .about-grid, .admission-wrap, .contact-grid { grid-template-columns:1fr; }
+      .principal-card { grid-template-columns:1fr; text-align:center; }
+      .principal-msg::before { left:50%; transform:translateX(-50%); position:relative; display:block; }
+      .notices-wrap { grid-template-columns:1fr; }
+      .about-badge { bottom:10px; right:10px; }
+      nav { padding:0 4%; }
+      .nav-links { display:none; }
+      .hamburger { display:flex; }
+    }
+    @media(max-width:600px) {
+      section { padding:60px 5%; }
+      .stats-grid { grid-template-columns:1fr 1fr; }
+      .fab-panel { width:240px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Particles -->
+<div id="particles"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">
+    <img src="https://i.ibb.co/hRT2cCq4/Chat-GPT-Image-May-19-2026-06-59-10-PM.png" alt="Logo">
+    <span>Little Angels<br>Model Public School</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#principal">Principal</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#admission">Admission</a></li>
+    <li><a href="#facilities">Facilities</a></li>
+    <li><a href="#notices">Notices</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#principal" onclick="closeMenu()">Principal's Message</a>
+  <a href="#gallery" onclick="closeMenu()">Gallery</a>
+  <a href="#admission" onclick="closeMenu()">Admission</a>
+  <a href="#facilities" onclick="closeMenu()">Facilities</a>
+  <a href="#notices" onclick="closeMenu()">Notice Board</a>
+  <a href="#achievements" onclick="closeMenu()">Achievements</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<header id="hero">
+  <div class="hero-stars" id="heroStars"></div>
+
+  <div style="position:relative;z-index:2;">
+    <div class="logo-ring">
+      <img src="https://i.ibb.co/hRT2cCq4/Chat-GPT-Image-May-19-2026-06-59-10-PM.png" alt="School Logo">
+    </div>
+
+    <div class="hero-badge">✨ Established 2006 &nbsp;|&nbsp; 20 Years of Excellence</div>
+
+    <h1>Little Angels<br><span>Model Public School</span></h1>
+
+    <p class="hero-tagline">
+      Building Bright Futures, Inspiring Young Minds &amp; Creating Tomorrow's Leaders
+    </p>
+    <p class="hero-sub">🌟 Where Learning Meets Excellence &nbsp;|&nbsp; English Medium School 🌟</p>
+
+    <div class="hero-btns">
+      <a href="#admission" class="btn-primary"><i class="fas fa-pencil-alt"></i> Apply for Admission</a>
+      <a href="#about" class="btn-outline"><i class="fas fa-play"></i> Explore School</a>
+    </div>
+
+    <div class="scroll-indicator"><i class="fas fa-chevron-down"></i></div>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee" id="marquee">
+    <span><i class="fas fa-star"></i> Admission Open 2025-26</span>
+    <span><i class="fas fa-graduation-cap"></i> Pre-Nursery to Class 8th</span>
+    <span><i class="fas fa-trophy"></i> 20 Years of Excellence</span>
+    <span><i class="fas fa-phone"></i> Contact: 8340616407</span>
+    <span><i class="fas fa-book"></i> English Medium School</span>
+    <span><i class="fas fa-map-marker-alt"></i> Chakla Nirmali, Supaul, Bihar</span>
+    <span><i class="fas fa-star"></i> Admission Open 2025-26</span>
+    <span><i class="fas fa-graduation-cap"></i> Pre-Nursery to Class 8th</span>
+    <span><i class="fas fa-trophy"></i> 20 Years of Excellence</span>
+    <span><i class="fas fa-phone"></i> Contact: 8340616407</span>
+    <span><i class="fas fa-book"></i> English Medium School</span>
+    <span><i class="fas fa-map-marker-alt"></i> Chakla Nirmali, Supaul, Bihar</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap reveal-left">
+      <img src="https://i.ibb.co/Jj859DXw/Chat-GPT-Image-May-19-2026-07-07-14-PM.png" alt="Director Ma'am">
+      <div class="about-badge">
+        <span class="num">20+</span>
+        Years of<br>Excellence
+      </div>
+    </div>
+    <div class="reveal-right">
+      <span class="section-label">About Us</span>
+      <h2 class="section-title">Where <span>Dreams Begin</span></h2>
+      <div class="section-line"></div>
+      <div class="about-text">
+        <p>Welcome to <strong>Little Angels Model Public School</strong> — a beacon of quality education in Chakla Nirmali, Supaul, Bihar. For over <strong>20 glorious years</strong>, we have been shaping young minds into confident, capable, and compassionate human beings.</p>
+        <p>Our English Medium school is equipped with modern infrastructure, experienced teachers, and a nurturing environment where every child is encouraged to discover their unique potential and soar to new heights.</p>
+        <p>With <strong>1000+ students</strong> and <strong>50+ dedicated staff members</strong>, we are a family that believes every child is special and deserves the very best start in life.</p>
+      </div>
+      <div class="about-features">
+        <div class="feat-item"><i class="fas fa-check-circle"></i> English Medium</div>
+        <div class="feat-item"><i class="fas fa-check-circle"></i> 1000+ Students</div>
+        <div class="feat-item"><i class="fas fa-check-circle"></i> 50+ Staff Members</div>
+        <div class="feat-item"><i class="fas fa-check-circle"></i> Modern Infrastructure</div>
+        <div class="feat-item"><i class="fas fa-check-circle"></i> Smart Classrooms</div>
+        <div class="feat-item"><i class="fas fa-check-circle"></i> CCTV Security</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat-card reveal">
+      <div class="stat-icon">🎓</div>
+      <span class="stat-num" data-target="20">0</span>+
+      <span class="stat-label">Years of Excellence</span>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-icon">👩‍🎓</div>
+      <span class="stat-num" data-target="1000">0</span>+
+      <span class="stat-label">Happy Students</span>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-icon">👨‍🏫</div>
+      <span class="stat-num" data-target="50">0</span>+
+      <span class="stat-label">Expert Staff</span>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-icon">🏆</div>
+      <span class="stat-num" data-target="100">0</span>+
+      <span class="stat-label">Awards Won</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPAL -->
+<section id="principal">
+  <div class="section-center reveal">
+    <span class="section-label">Leadership</span>
+    <h2 class="section-title">Principal's <span>Message</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="principal-card reveal">
+    <div class="principal-img-wrap">
+      <div class="avatar" style="background:none; box-shadow:none; overflow:hidden; padding:0;">
+        <img src="https://i.ibb.co/Jj859DXw/Chat-GPT-Image-May-19-2026-07-07-14-PM.png" alt="Director Ma'am" style="width:180px; height:180px; object-fit:cover; border-radius:50%; border:5px solid var(--gold); box-shadow:0 10px 30px rgba(0,49,102,0.3);">
+      </div>
+      <div class="principal-name">Director Ma'am</div>
+      <div class="principal-title">Little Angels Model Public School</div>
+    </div>
+    <div>
+      <p class="principal-msg">
+        Dear Parents and Students,<br><br>
+        At Little Angels Model Public School, our goal is to create disciplined, confident, and successful students who are ready to face the challenges of tomorrow. We believe that education is not just about learning facts — it is about building character, igniting curiosity, and developing leadership qualities in every child.<br><br>
+        For over 20 years, we have dedicated ourselves to providing a nurturing and inspiring environment where young minds can flourish. Together, let us build a brighter future for your children.
+      </p>
+      <div class="principal-sign">~ With Warm Regards</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-center reveal">
+    <span class="section-label">Our Memories</span>
+    <h2 class="section-title">School <span>Gallery</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item reveal">
+      <img src="https://i.ibb.co/Df7yjzSw/project-made-by-student.jpg" alt="Student Projects" loading="lazy">
+      <div class="gallery-overlay"><h4>🎨 Student Projects</h4><p>Creative minds at work</p></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img src="https://i.ibb.co/Z6w7YhYy/summer-party.jpg" alt="Children Day Party" loading="lazy">
+      <div class="gallery-overlay"><h4>🎉 Children's Day Party</h4><p>Celebrating our little stars</p></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img src="https://i.ibb.co/DHWKnzsj/day-shift-party.jpg" alt="Children Day Party 2" loading="lazy">
+      <div class="gallery-overlay"><h4>🎊 Children's Day Fun</h4><p>Joy, laughter and memories</p></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img src="https://i.ibb.co/cSgHYGNH/summer-camp.jpg" alt="Summer Camp" loading="lazy">
+      <div class="gallery-overlay"><h4>☀️ Summer Camp</h4><p>Adventure and learning together</p></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img src="https://i.ibb.co/Z6YCwCVf/summer-party-2.jpg" alt="Summer Camp 2" loading="lazy">
+      <div class="gallery-overlay"><h4>🏕️ Summer Camp Activities</h4><p>Fun-filled summer experiences</p></div>
+    </div>
+    <div class="gallery-item reveal" style="background:linear-gradient(135deg,var(--navy),var(--blue)); display:flex; align-items:center; justify-content:center;">
+      <div style="text-align:center; padding:20px; color:white;">
+        <i class="fas fa-images" style="font-size:3rem; color:var(--gold); margin-bottom:10px;"></i>
+        <p style="font-weight:700;">More Photos Coming Soon!</p>
+        <p style="font-size:0.85rem; opacity:0.8;">Annual Day · Sports Day · Teachers' Day</p>
+      </div>
+      <div class="gallery-overlay"><h4>More Memories</h4><p>Stay tuned for more!</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSION -->
+<section id="admission">
+  <div class="admission-wrap">
+    <div class="admission-content reveal-left">
+      <span class="section-label" style="background:var(--gold);">📝 Admissions Open</span>
+      <h2>Enroll Your Child<br>Today!</h2>
+      <p>Give your child the gift of quality education. Little Angels Model Public School is now accepting admissions for the academic year 2025–26. Secure your child's future with us!</p>
+
+      <h4 style="color:white; margin-bottom:14px; font-size:1rem;">Classes Available:</h4>
+      <div class="class-tags">
+        <span class="class-tag">Pre-Nursery</span>
+        <span class="class-tag">Nursery</span>
+        <span class="class-tag">L.K.G</span>
+        <span class="class-tag">U.K.G</span>
+        <span class="class-tag">Class 1st</span>
+        <span class="class-tag">Class 2nd</span>
+        <span class="class-tag">Class 3rd</span>
+        <span class="class-tag">Class 4th</span>
+        <span class="class-tag">Class 5th</span>
+        <span class="class-tag">Class 6th</span>
+        <span class="class-tag">Class 7th</span>
+        <span class="class-tag">Class 8th</span>
+      </div>
+
+      <a href="tel:8340616407" class="btn-primary" style="background:linear-gradient(135deg,var(--gold),var(--gold2));">
+        <i class="fas fa-phone"></i> Call for Admission: 8340616407
+      </a>
+    </div>
+
+    <div class="admission-card reveal-right">
+      <h3>📋 Admission Details</h3>
+      <div class="adm-item">
+        <div class="adm-icon blue"><i class="fas fa-calendar-check"></i></div>
+        <div class="adm-info">
+          <strong>Session 2025–26</strong>
+          <span>Admissions are currently open</span>
+        </div>
+      </div>
+      <div class="adm-item">
+        <div class="adm-icon gold"><i class="fas fa-graduation-cap"></i></div>
+        <div class="adm-info">
+          <strong>Classes: Pre-Nursery to 8th</strong>
+          <span>English Medium education</span>
+        </div>
+      </div>
+      <div class="adm-item">
+        <div class="adm-icon green"><i class="fas fa-file-alt"></i></div>
+        <div class="adm-info">
+          <strong>Documents Required</strong>
+          <span>Birth certificate, Aadhaar card, Photos</span>
+        </div>
+      </div>
+      <div class="adm-item">
+        <div class="adm-icon blue"><i class="fas fa-phone-alt"></i></div>
+        <div class="adm-info">
+          <strong>Contact for Enquiry</strong>
+          <span><a href="tel:8340616407" style="color:var(--blue); font-weight:700;">8340616407</a></span>
+        </div>
+      </div>
+      <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="tel:8340616407" class="call-btn" style="flex:1; justify-content:center;"><i class="fas fa-phone"></i> Call Now</a>
+        <a href="https://wa.me/918340616407?text=Hello, I want admission information for Little Angels Model Public School" class="wa-btn" style="flex:1; justify-content:center;" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section id="facilities">
+  <div class="section-center reveal">
+    <span class="section-label">What We Offer</span>
+    <h2 class="section-title">Our <span>Facilities</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="facilities-grid">
+    <div class="facility-card reveal">
+      <div class="fac-icon" style="background:#EBF3FF;"><span style="font-size:2rem;">🖥️</span></div>
+      <h4>Smart Classrooms</h4>
+      <p>Modern digital classrooms with projectors and interactive learning tools for engaged education.</p>
+    </div>
+    <div class="facility-card reveal">
+      <div class="fac-icon" style="background:#E8F5E9;"><span style="font-size:2rem;">💻</span></div>
+      <h4>Computer Lab</h4>
+      <p>Fully equipped computer lab to prepare students for the digital age with hands-on learning.</p>
+    </div>
+    <div class="facility-card reveal">
+      <div class="fac-icon" style="background:#FFF8E1;"><span style="font-size:2rem;">📚</span></div>
+      <h4>Library</h4>
+      <p>A rich collection of books, magazines, and educational resources to fuel curiosity and knowledge.</p>
+    </div>
+    <div class="facility-card reveal">
+      <div class="fac-icon" style="background:#FCE4EC;"><span style="font-size:2rem;">⚽</span></div>
+      <h4>Playground</h4>
+      <p>Spacious playground for sports, games, and physical activities that build teamwork and fitness.</p>
+    </div>
+    <div class="facility-card reveal">
+      <div class="fac-icon" style="background:#EDE7F6;"><span style="font-size:2rem;">📷</span></div>
+      <h4>CCTV Security</h4>
+      <p>24/7 CCTV surveillance across the entire campus for the complete safety of every student.</p>
+    </div>
+    <div class="facility-card reveal">
+      <div class="fac-icon" style="background:#E0F7FA;"><span style="font-size:2rem;">🚌</span></div>
+      <h4>Transportation</h4>
+      <p>Safe and reliable school transportation services covering all major routes in the area.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NOTICE BOARD -->
+<section id="notices" style="background:white;">
+  <div class="section-center reveal">
+    <span class="section-label">Stay Updated</span>
+    <h2 class="section-title">📢 Notice <span>Board</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="notices-wrap">
+    <div class="notice-board reveal-left">
+      <div class="notice-header"><i class="fas fa-bell"></i><h3>Important Notices</h3></div>
+      <div class="notice-item">
+        <div class="notice-date"><span class="day">15</span><span class="month">Jun</span></div>
+        <div class="notice-content">
+          <strong>Summer Vacation Ends</strong>
+          <span>School reopens after summer break</span><br>
+          <span class="notice-tag tag-holiday">Holiday</span>
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date"><span class="day">20</span><span class="month">Jun</span></div>
+        <div class="notice-content">
+          <strong>Half-Yearly Exam Schedule</strong>
+          <span>Timetable will be shared with students</span><br>
+          <span class="notice-tag tag-exam">Exam</span>
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date"><span class="day">05</span><span class="month">Jul</span></div>
+        <div class="notice-content">
+          <strong>Annual Sports Day 2025</strong>
+          <span>Students to register for events</span><br>
+          <span class="notice-tag tag-event">Event</span>
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date"><span class="day">15</span><span class="month">Aug</span></div>
+        <div class="notice-content">
+          <strong>Independence Day Celebration</strong>
+          <span>Flag hoisting at 8:00 AM, all must attend</span><br>
+          <span class="notice-tag tag-event">Event</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice-board reveal-right" style="background:linear-gradient(135deg,#EBF3FF,#D6EAFF); border-color:var(--blue);">
+      <div class="notice-header"><i class="fas fa-calendar-alt" style="color:var(--blue);"></i><h3>Upcoming Events</h3></div>
+      <div class="notice-item">
+        <div class="notice-date"><span class="day">26</span><span class="month">Jan</span></div>
+        <div class="notice-content">
+          <strong>Republic Day Celebration</strong>
+          <span>Cultural programs by students</span><br>
+          <span class="notice-tag tag-event">Event</span>
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date"><span class="day">05</span><span class="month">Sep</span></div>
+        <div class="notice-content">
+          <strong>Teachers' Day 2025</strong>
+          <span>Special tribute to our teachers</span><br>
+          <span class="notice-tag tag-event">Event</span>
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date"><span class="day">Oct</span><span class="month">2025</span></div>
+        <div class="notice-content">
+          <strong>Annual Function 2025</strong>
+          <span>Grand annual celebration — date TBA</span><br>
+          <span class="notice-tag tag-event">Event</span>
+        </div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-date"><span class="day">Dec</span><span class="month">2025</span></div>
+        <div class="notice-content">
+          <strong>Final Examinations</strong>
+          <span>Year-end exams for all classes</span><br>
+          <span class="notice-tag tag-exam">Exam</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-center reveal">
+    <span class="section-label">Pride of Our School</span>
+    <h2 class="section-title">Student <span>Achievements</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="ach-grid">
+    <div class="ach-card reveal">
+      <div class="ach-trophy">🥇</div>
+      <h4>Academic Toppers</h4>
+      <p>Our students consistently achieve top ranks in board examinations and district-level competitions every year.</p>
+      <div class="ach-stars">★★★★★</div>
+    </div>
+    <div class="ach-card reveal">
+      <div class="ach-trophy">🏆</div>
+      <h4>Sports Champions</h4>
+      <p>Little Angels students have won medals and trophies in district and state-level sports competitions.</p>
+      <div class="ach-stars">★★★★★</div>
+    </div>
+    <div class="ach-card reveal">
+      <div class="ach-trophy">🎨</div>
+      <h4>Creative Excellence</h4>
+      <p>Our students shine in art, craft, drawing, and cultural competitions at inter-school events.</p>
+      <div class="ach-stars">★★★★★</div>
+    </div>
+    <div class="ach-card reveal">
+      <div class="ach-trophy">📜</div>
+      <h4>Certifications & Awards</h4>
+      <p>Students have received multiple certificates and awards for science projects, quizzes, and essay competitions.</p>
+      <div class="ach-stars">★★★★★</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="reveal-left">
+      <span class="section-label">Get In Touch</span>
+      <h2 class="contact-info" style="font-family:'Playfair Display',serif; font-size:2.5rem; color:white; margin-bottom:30px;">Contact <span style="color:var(--gold);">Us</span></h2>
+
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+        <div class="contact-detail">
+          <strong>Phone Number</strong>
+          <a href="tel:8340616407">8340616407</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+        <div class="contact-detail">
+          <strong>WhatsApp</strong>
+          <a href="https://wa.me/918340616407" target="_blank">8340616407</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+        <div class="contact-detail">
+          <strong>Email Address</strong>
+          <a href="mailto:manoj94702@gmail.com">manoj94702@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="contact-detail">
+          <strong>School Address</strong>
+          <span>Ward No. 26, Chakla Nirmali, Supaul, Bihar</span>
+        </div>
+      </div>
+
+      <div class="contact-btns" style="margin-top:10px;">
+        <a href="tel:8340616407" class="call-btn"><i class="fas fa-phone"></i> Call Now</a>
+        <a href="https://wa.me/918340616407?text=Hello, I want to know more about Little Angels Model Public School" class="wa-btn" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+      </div>
+    </div>
+
+    <div class="reveal-right">
+      <div class="map-embed">
+        <iframe
+          src="https://maps.google.com/maps?q=Chakla+Nirmali+Supaul+Bihar&output=embed&z=14"
+          allowfullscreen loading="lazy">
+        </iframe>
+      </div>
+      <div style="margin-top:16px; text-align:center;">
+        <a href="https://maps.app.goo.gl/Ckxd4esr1o3NS7CL9" target="_blank" class="btn-primary" style="display:inline-flex; margin-top:0;">
+          <i class="fas fa-directions"></i> Get Directions
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL MEDIA -->
+<section id="social">
+  <div class="section-center reveal">
+    <span class="section-label">Follow Us</span>
+    <h2 class="section-title">Stay Connected on <span>Social Media</span></h2>
+    <div class="section-line"></div>
+    <p style="color:#555; max-width:500px; margin:0 auto 10px;">Follow us for the latest updates, photos, events, and announcements from Little Angels Model Public School.</p>
+  </div>
+  <div class="social-links">
+    <a href="#" class="social-btn yt" title="YouTube"><i class="fab fa-youtube"></i></a>
+    <a href="#" class="social-btn fb" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" class="social-btn ig" title="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://wa.me/918340616407" class="social-btn wa2" title="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p style="font-size:1rem; margin-bottom:8px;">
+    © 2026 <strong>Little Angels Model Public School</strong> | Chakla Nirmali, Supaul, Bihar
+  </p>
+  <p style="font-size:0.9rem;">
+    Made with <span class="footer-heart">❤️</span> by Kumar Anshuman &nbsp;|&nbsp; 
+    <a href="tel:8340616407" style="color:var(--gold); text-decoration:none;">📞 8340616407</a>
+  </p>
+</footer>
+
+<!-- SUPPORT FAB -->
+<div id="support-fab">
+  <div class="fab-panel" id="fabPanel">
+    <button class="fab-close" onclick="toggleFab()"><i class="fas fa-times"></i></button>
+    <h4>💬 Help & Support</h4>
+    <p>Need help? Contact the school directly!</p>
+    <a href="tel:8340616407" class="fab-action phone">
+      <i class="fas fa-phone-alt"></i>
+      <div><strong>Call School</strong><br><small>8340616407</small></div>
+    </a>
+    <a href="https://wa.me/918340616407?text=Hello, I need help regarding Little Angels Model Public School" class="fab-action whatsapp" target="_blank">
+      <i class="fab fa-whatsapp"></i>
+      <div><strong>WhatsApp Us</strong><br><small>Quick response</small></div>
+    </a>
+  </div>
+  <button class="fab-main" onclick="toggleFab()" id="fabBtn" title="Help & Support">
+    <i class="fas fa-headset"></i>
+  </button>
+</div>
+
+<script>
+  // ===== PARTICLES =====
+  const pContainer = document.getElementById('particles');
+  for(let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.classList.add('particle');
+    const size = Math.random() * 20 + 8;
+    const colors = ['#FFD600','#1565C0','#42A5F5','#FF6F00','#ffffff'];
+    p.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration:${Math.random()*15+10}s;
+      animation-delay:${Math.random()*10}s;
+    `;
+    pContainer.appendChild(p);
+  }
+
+  // ===== HERO STARS =====
+  const starsWrap = document.getElementById('heroStars');
+  for(let i = 0; i < 60; i++) {
+    const s = document.createElement('div');
+    s.classList.add('star');
+    const size = Math.random()*3+1;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%; top:${Math.random()*100}%;
+      animation-duration:${Math.random()*3+2}s;
+      animation-delay:${Math.random()*5}s;
+    `;
+    starsWrap.appendChild(s);
+  }
+
+  // ===== NAVBAR SCROLL =====
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // ===== MOBILE MENU =====
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // ===== FAB SUPPORT =====
+  let fabOpen = false;
+  function toggleFab() {
+    fabOpen = !fabOpen;
+    document.getElementById('fabPanel').classList.toggle('open', fabOpen);
+    document.getElementById('fabBtn').innerHTML = fabOpen
+      ? '<i class="fas fa-times"></i>'
+      : '<i class="fas fa-headset"></i>';
+  }
+
+  // ===== SCROLL REVEAL =====
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // ===== COUNTER ANIMATION =====
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        const el = e.target;
+        const target = parseInt(el.dataset.target);
+        let current = 0;
+        const step = target / 60;
+        const timer = setInterval(() => {
+          current += step;
+          if(current >= target) { current = target; clearInterval(timer); }
+          el.textContent = Math.floor(current);
+        }, 25);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+    counterObserver.observe(el);
+  });
+
+  // ===== STAGGERED REVEAL =====
+  document.querySelectorAll('.gallery-item, .facility-card, .ach-card, .stat-card').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.08}s`;
+  });
+</script>
+</body>
+</html>
